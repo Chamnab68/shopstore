@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-6">
                     @if($reward->image)
-                        <img src="{{ asset('storage/'.$reward->image) }}" class="mb-2" style="height:80px; object-fit:cover; border-radius:8px;">
+                        <img src="{{ \App\Support\PublicImage::url($reward->image) }}" class="mb-2" style="height:80px; object-fit:cover; border-radius:8px;">
                     @endif
                     <label class="form-label">Replace Image</label>
                     <input type="file" name="image" class="form-control" accept="image/*">

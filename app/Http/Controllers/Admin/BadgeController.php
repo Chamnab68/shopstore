@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\{Badge, User};
 use App\Services\{BadgeService, ActivityLogService};
+use App\Support\PublicImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class BadgeController extends Controller
 {
@@ -37,7 +37,7 @@ class BadgeController extends Controller
         ]);
 
         if ($request->hasFile('icon')) {
-            $validated['icon'] = $request->file('icon')->store('badges', 'public');
+            $validated['icon'] = PublicImage::store($request->file('icon'), 'badges');
         }
 
         $badge = Badge::create($validated);
@@ -62,10 +62,8 @@ class BadgeController extends Controller
         ]);
 
         if ($request->hasFile('icon')) {
-            if ($badge->icon) {
-                Storage::disk('public')->delete($badge->icon);
-            }
-            $validated['icon'] = $request->file('icon')->store('badges', 'public');
+            PublicImage::delete($badge->icon);
+            $validated['icon'] = PublicImage::store($request->file('icon'), 'badges');
         }
 
         $old = $badge->toArray();
@@ -78,9 +76,7 @@ class BadgeController extends Controller
 
     public function destroy(Badge $badge)
     {
-        if ($badge->icon) {
-            Storage::disk('public')->delete($badge->icon);
-        }
+        PublicImage::delete($badge->icon);
 
         $this->activityLog->log('badge.deleted', $badge, ['old_values' => $badge->toArray()]);
         $badge->delete();

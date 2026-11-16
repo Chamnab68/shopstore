@@ -47,7 +47,7 @@
                             
                             @if($settings['bank_qr_code'])
                                 <div class="text-center p-3 border rounded bg-light" style="max-width: 200px;">
-                                    <img src="{{ asset('storage/' . $settings['bank_qr_code']) }}" class="img-fluid rounded shadow-sm mb-2">
+                                    <img src="{{ \App\Support\PublicImage::url($settings['bank_qr_code']) }}" class="img-fluid rounded shadow-sm mb-2">
                                     <p class="small text-muted mb-0">QR Code បច្ចុប្បន្ន</p>
                                 </div>
                             @endif

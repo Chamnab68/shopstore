@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\{Cart, Order, OrderItem};
+use App\Support\PublicImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{DB, Validator};  // use Illuminate\Support\Facades\Validator; for Laravel 9 and above
 
@@ -87,7 +88,7 @@ class OrderApiController extends Controller
                     'order_id'      => $order->id,
                     'product_id'    => $item->product_id,
                     'product_name'  => $item->product->name,
-                    'product_image' => $item->product->image,
+                    'product_image' => $item->product->image_url,
                     'price'         => $item->product->price,
                     'sale_price'    => $item->product->sale_price,
                     'quantity'      => $item->quantity,
@@ -113,7 +114,7 @@ class OrderApiController extends Controller
         if ($v->fails()) return response()->json(['success'=>false,'errors'=>$v->errors()], 422);
 
         $order = Order::where('user_id', $request->user()->id)->findOrFail($id);
-        $path  = $request->file('receipt')->store('receipts', 'public');
+        $path  = PublicImage::store($request->file('receipt'), 'receipts');
         $order->update(['receipt_image'=>$path,'receipt_uploaded_at'=>now(),'payment_status'=>'paid']);
         return response()->json(['success'=>true,'message'=>'Receipt uploaded.']);
     }

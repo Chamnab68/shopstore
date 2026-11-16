@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Support\PublicImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -37,14 +37,14 @@ class SettingController extends Controller
 
         if ($request->hasFile('bank_qr_usd')) {
             $old = Setting::get('bank_qr_usd');
-            if ($old) Storage::disk('public')->delete($old);
-            Setting::set('bank_qr_usd', $request->file('bank_qr_usd')->store('settings', 'public'));
+            PublicImage::delete($old);
+            Setting::set('bank_qr_usd', PublicImage::store($request->file('bank_qr_usd'), 'settings'));
         }
 
         if ($request->hasFile('bank_qr_khr')) {
             $old = Setting::get('bank_qr_khr');
-            if ($old) Storage::disk('public')->delete($old);
-            Setting::set('bank_qr_khr', $request->file('bank_qr_khr')->store('settings', 'public'));
+            PublicImage::delete($old);
+            Setting::set('bank_qr_khr', PublicImage::store($request->file('bank_qr_khr'), 'settings'));
         }
 
         return redirect()->route('admin.settings.index')->with('success', '✅ Payment settings updated!');
@@ -55,7 +55,7 @@ class SettingController extends Controller
         $type = $request->type ?? 'usd';
         $key  = 'bank_qr_' . $type;
         $old  = Setting::get($key);
-        if ($old) Storage::disk('public')->delete($old);
+        PublicImage::delete($old);
         Setting::set($key, null);
         return response()->json(['success' => true, 'message' => 'QR Code removed.']);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\PublicImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,7 +53,7 @@ class Product extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return asset('storage/' . $this->image);
+            return PublicImage::url($this->image);
         }
         return asset('images/default-product.png');
     }

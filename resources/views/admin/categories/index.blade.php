@@ -60,7 +60,7 @@
                                 <div class="d-flex align-items-center gap-3">
                                     <div style="width:40px;height:40px;border-radius:8px;background:#f8f9fa;border:1px solid #eee;display:flex;align-items:center;justify-content:center;overflow:hidden">
                                         @if($cat->image)
-                                        <img src="{{ asset('storage/'.$cat->image) }}" style="width:100%;height:100%;object-fit:cover">
+                                        <img src="{{ \App\Support\PublicImage::url($cat->image) }}" style="width:100%;height:100%;object-fit:cover">
                                         @else
                                         <i class="fas fa-tags text-muted"></i>
                                         @endif

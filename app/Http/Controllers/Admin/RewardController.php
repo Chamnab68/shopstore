@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\{Reward, Product, Tier};
 use App\Services\ActivityLogService;
+use App\Support\PublicImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class RewardController extends Controller
 {
@@ -42,7 +42,7 @@ class RewardController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('rewards', 'public');
+            $validated['image'] = PublicImage::store($request->file('image'), 'rewards');
         }
 
         $reward = Reward::create($validated);
@@ -73,10 +73,8 @@ class RewardController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($reward->image) {
-                Storage::disk('public')->delete($reward->image);
-            }
-            $validated['image'] = $request->file('image')->store('rewards', 'public');
+            PublicImage::delete($reward->image);
+            $validated['image'] = PublicImage::store($request->file('image'), 'rewards');
         }
 
         $old = $reward->toArray();
@@ -89,9 +87,7 @@ class RewardController extends Controller
 
     public function destroy(Reward $reward)
     {
-        if ($reward->image) {
-            Storage::disk('public')->delete($reward->image);
-        }
+        PublicImage::delete($reward->image);
 
         $this->activityLog->log('reward.deleted', $reward, ['old_values' => $reward->toArray()]);
         $reward->delete();

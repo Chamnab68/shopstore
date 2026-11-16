@@ -28,7 +28,7 @@
                     <img src="{{ $product->image_url }}" onclick="document.getElementById('main-img').src=this.src"
                          style="width:60px;height:60px;object-fit:contain;border:2px solid #eee;border-radius:8px;cursor:pointer">
                     @foreach($product->images as $img)
-                    <img src="{{ asset('storage/'.$img) }}" onclick="document.getElementById('main-img').src=this.src"
+                    <img src="{{ \App\Support\PublicImage::url($img) }}" onclick="document.getElementById('main-img').src=this.src"
                          style="width:60px;height:60px;object-fit:contain;border:2px solid #eee;border-radius:8px;cursor:pointer">
                     @endforeach
                 </div>

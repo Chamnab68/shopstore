@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\{Cart, Order, OrderItem, Setting, Referral, Badge, Tier, LoyaltyActivityLog, PointsTransaction, Product};
 use App\Services\{TelegramService, NotificationService, LoyaltyService};
+use App\Support\PublicImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Auth, DB, Storage, Log};
+use Illuminate\Support\Facades\{Auth, DB, Log};
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -306,7 +307,7 @@ $paymentMethod = $request->payment_method;
         $order = Order::where('user_id', Auth::id())->findOrFail($id);
 
         if ($request->hasFile('receipt')) {
-            $path = $request->file('receipt')->store('receipts', 'public');
+            $path = PublicImage::store($request->file('receipt'), 'receipts');
             $order->receipt_image = $path;
             $order->save();
 

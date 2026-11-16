@@ -21,7 +21,7 @@
             <div class="card-body">
                 <div class="mb-3">
                     @if($badge->icon)
-                        <img src="{{ asset('storage/'.$badge->icon) }}" style="width:64px;height:64px;object-fit:contain">
+                        <img src="{{ \App\Support\PublicImage::url($badge->icon) }}" style="width:64px;height:64px;object-fit:contain">
                     @else
                         <i class="fas fa-award fa-3x text-warning"></i>
                     @endif

@@ -81,7 +81,7 @@
                 <h6 class="fw-bold mb-3">💳 Payment Receipt</h6>
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <img src="{{ asset('storage/'.$order->receipt_image) }}" alt="Receipt" class="img-fluid rounded-3 border">
+                        <img src="{{ \App\Support\PublicImage::url($order->receipt_image) }}" alt="Receipt" class="img-fluid rounded-3 border">
                     </div>
                     <div class="col-md-6">
                         <div class="mb-2"><span class="text-muted">Uploaded:</span> <strong>{{ $order->receipt_uploaded_at?->format('d M Y H:i') }}</strong></div>

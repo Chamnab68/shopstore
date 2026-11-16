@@ -34,7 +34,7 @@
                             </div>
                             @if($banner->image)
                             <div style="flex-shrink:0;margin-left:20px">
-                                <img src="{{ asset('storage/'.$banner->image) }}" style="max-height:280px;object-fit:contain">
+                                <img src="{{ \App\Support\PublicImage::url($banner->image) }}" style="max-height:280px;object-fit:contain">
                             </div>
                             @endif
                         </div>
@@ -92,7 +92,7 @@
                     <div style="text-align:center;cursor:pointer;transition:transform .2s" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
                         <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;margin:0 auto 8px;background:white;box-shadow:0 4px 15px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center">
                             @if($cat->image)
-                            <img src="{{ asset('storage/'.$cat->image) }}" style="width:70px;height:70px;object-fit:contain">
+                            <img src="{{ \App\Support\PublicImage::url($cat->image) }}" style="width:70px;height:70px;object-fit:contain">
                             @else
                             <i class="fas fa-shopping-basket fa-2x text-muted"></i>
                             @endif

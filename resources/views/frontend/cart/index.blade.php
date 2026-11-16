@@ -27,7 +27,7 @@
                     <tr id="cart-row-{{ $id }}">
                         <td>
                             <div class="d-flex align-items-center gap-3">
-                                <img src="{{ $item->product->image_url ?? asset('storage/' . $item->product->image) }}" style="width:60px;height:60px;object-fit:contain">
+                                <img src="{{ $item->product->image_url }}" style="width:60px;height:60px;object-fit:contain">
                                 <div>
                                     <div class="fw-bold" style="font-size:14px">{{ $item->product->name }}</div>
                                     <small class="text-muted">{{ $item->product->category->name ?? '' }}</small>

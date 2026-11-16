@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\{Category, Product};
+use App\Support\PublicImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -94,7 +94,7 @@ class ProductController extends Controller
         $validated['is_cold_sale'] = $request->has('is_cold_sale') ? 1 : 0;
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            $validated['image'] = PublicImage::store($request->file('image'), 'products');
         }
 
         Product::create($validated);
@@ -133,10 +133,8 @@ class ProductController extends Controller
         $validated['is_cold_sale'] = $request->has('is_cold_sale') ? 1 : 0;
 
         if ($request->hasFile('image')) {
-            if ($product->image && Storage::disk('public')->exists($product->image)) {
-                Storage::disk('public')->delete($product->image);
-            }
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            PublicImage::delete($product->image);
+            $validated['image'] = PublicImage::store($request->file('image'), 'products');
         }
 
         $product->update($validated);

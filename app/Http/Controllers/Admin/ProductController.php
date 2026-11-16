@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\{Product, Category};
+use App\Support\PublicImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -59,7 +59,7 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('products', 'public');
+            $data['image'] = PublicImage::store($request->file('image'), 'products');
         }
 
         $data['is_active']      = $request->boolean('is_active');
@@ -102,8 +102,8 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            if ($product->image) Storage::disk('public')->delete($product->image);
-            $data['image'] = $request->file('image')->store('products', 'public');
+            PublicImage::delete($product->image);
+            $data['image'] = PublicImage::store($request->file('image'), 'products');
         }
 
         // កំណត់តម្លៃ Boolean ឱ្យបានច្បាស់លាស់មុនពេល Update
@@ -120,7 +120,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        if ($product->image) Storage::disk('public')->delete($product->image);
+        PublicImage::delete($product->image);
         $product->delete();
         return response()->json(['success' => true]);
     }

@@ -124,7 +124,7 @@
                         @foreach($cartItems as $item)
                         <div class="d-flex align-items-center gap-3 mb-3">
                             <div class="position-relative">
-                                <img src="{{ asset('storage/' . $item->product->image) }}" style="width:50px;height:50px;object-fit:cover" onerror="this.src='{{ asset('images/default.png') }}'">
+                                <img src="{{ $item->product->image_url }}" style="width:50px;height:50px;object-fit:cover" onerror="this.src='{{ asset('images/default.png') }}'">
                                 <span class="badge bg-primary position-absolute top-0 start-100 translate-middle rounded-pill" style="font-size:10px">{{ $item->quantity }}</span>
                             </div>
                             <div class="flex-grow-1">

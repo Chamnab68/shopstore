@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Support\PublicImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -30,7 +30,7 @@ class CategoryController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('categories', 'public');
+            $data['image'] = PublicImage::store($request->file('image'), 'categories');
         }
 
         Category::create($data);
@@ -51,8 +51,8 @@ class CategoryController extends Controller
         $data['is_active'] = $request->boolean('is_active');
 
         if ($request->hasFile('image')) {
-            if ($category->image) Storage::disk('public')->delete($category->image);
-            $data['image'] = $request->file('image')->store('categories', 'public');
+            PublicImage::delete($category->image);
+            $data['image'] = PublicImage::store($request->file('image'), 'categories');
         }
 
         $category->update($data);
@@ -65,7 +65,7 @@ class CategoryController extends Controller
         if ($category->products()->count() > 0) {
             return response()->json(['success' => false, 'message' => 'Cannot delete category with products.']);
         }
-        if ($category->image) Storage::disk('public')->delete($category->image);
+        PublicImage::delete($category->image);
         $category->delete();
         return response()->json(['success' => true]);
     }

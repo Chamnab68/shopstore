@@ -39,7 +39,7 @@
             @if($settings['bank_qr_usd'])
             <div class="text-center mb-3">
                 <div class="d-inline-block position-relative">
-                    <img src="{{ asset('storage/'.$settings['bank_qr_usd']) }}"
+                    <img src="{{ \App\Support\PublicImage::url($settings['bank_qr_usd']) }}"
                          style="width:200px;height:200px;object-fit:contain;border:2px solid #28a745;border-radius:12px;padding:8px;background:white">
                     <button type="button" onclick="deleteQr('usd')"
                             style="position:absolute;top:-10px;right:-10px;background:#dc3545;color:white;border:none;border-radius:50%;width:26px;height:26px;font-size:13px;cursor:pointer">✕</button>
@@ -82,7 +82,7 @@
             @if($settings['bank_qr_khr'])
             <div class="text-center mb-3">
                 <div class="d-inline-block position-relative">
-                    <img src="{{ asset('storage/'.$settings['bank_qr_khr']) }}"
+                    <img src="{{ \App\Support\PublicImage::url($settings['bank_qr_khr']) }}"
                          style="width:200px;height:200px;object-fit:contain;border:2px solid #dc3545;border-radius:12px;padding:8px;background:white">
                     <button type="button" onclick="deleteQr('khr')"
                             style="position:absolute;top:-10px;right:-10px;background:#dc3545;color:white;border:none;border-radius:50%;width:26px;height:26px;font-size:13px;cursor:pointer">✕</button>

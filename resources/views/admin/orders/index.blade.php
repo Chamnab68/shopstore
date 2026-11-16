@@ -109,7 +109,7 @@
                     <td>{!! $order->payment_badge !!}</td>
                     <td>
                         @if($order->receipt_image)
-                        <a href="{{ asset('storage/'.$order->receipt_image) }}" target="_blank" class="btn btn-sm btn-outline-success">
+                        <a href="{{ \App\Support\PublicImage::url($order->receipt_image) }}" target="_blank" class="btn btn-sm btn-outline-success">
                             <i class="fas fa-image me-1"></i>View
                         </a>
                         @else

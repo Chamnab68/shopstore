@@ -14,11 +14,11 @@
         {{-- ប៊ូតុង Link ទៅកាន់រូបភាព (ហៅតាម Model Instance ដោយផ្ទាល់) --}}
         @if($product->slug)
             <a href="{{ route('products.show', $product) }}">
-                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" loading="lazy" class="img-fluid">
+                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" loading="lazy" class="img-fluid">
             </a>
         @else
             <a href="javascript:void(0)" style="cursor: default;">
-                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" loading="lazy" class="img-fluid">
+                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" loading="lazy" class="img-fluid">
             </a>
         @endif
 

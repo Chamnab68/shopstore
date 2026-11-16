@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-md-6">
                     @if($badge->icon)
-                        <img src="{{ asset('storage/'.$badge->icon) }}" style="height:50px" class="mb-2">
+                        <img src="{{ \App\Support\PublicImage::url($badge->icon) }}" style="height:50px" class="mb-2">
                     @endif
                     <label class="form-label">Replace Icon</label>
                     <input type="file" name="icon" class="form-control" accept="image/*">

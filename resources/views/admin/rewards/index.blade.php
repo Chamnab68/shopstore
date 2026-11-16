@@ -20,7 +20,7 @@
         <div class="card h-100">
             <div style="height:140px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; overflow:hidden;">
                 @if($reward->image)
-                    <img src="{{ asset('storage/'.$reward->image) }}" class="w-100 h-100" style="object-fit:cover">
+                    <img src="{{ \App\Support\PublicImage::url($reward->image) }}" class="w-100 h-100" style="object-fit:cover">
                 @else
                     <i class="fas fa-gift fa-3x text-muted"></i>
                 @endif

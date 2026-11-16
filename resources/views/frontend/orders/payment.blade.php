@@ -106,7 +106,7 @@
                 <div id="qr-usd">
                     @if(!empty($bankInfo['bank_qr_usd']))
                     <div class="qr-wrapper" style="border-color:#28a745;box-shadow:0 8px 30px rgba(40,167,69,.25)">
-                        <img src="{{ asset('storage/'.$bankInfo['bank_qr_usd']) }}" alt="USD QR Code">
+                        <img src="{{ \App\Support\PublicImage::url($bankInfo['bank_qr_usd']) }}" alt="USD QR Code">
                     </div>
                     @else
                     <div class="qr-wrapper" style="border-color:#28a745;">
@@ -124,7 +124,7 @@
                 <div id="qr-khr" style="display:none">
                     @if(!empty($bankInfo['bank_qr_khr']))
                     <div class="qr-wrapper" style="border-color:#dc3545;box-shadow:0 8px 30px rgba(220,53,69,.25)">
-                        <img src="{{ asset('storage/'.$bankInfo['bank_qr_khr']) }}" alt="KHR QR Code">
+                        <img src="{{ \App\Support\PublicImage::url($bankInfo['bank_qr_khr']) }}" alt="KHR QR Code">
                     </div>
                     <div class="mt-3">
                         <span style="background:#f8d7da;color:#721c24;padding:6px 18px;border-radius:20px;font-weight:700;font-size:14px">
@@ -174,7 +174,7 @@
                 @if(!empty($order->receipt_image))
                 {{-- Already uploaded --}}
                 <div class="text-center mb-3">
-                    <img src="{{ asset('storage/'.$order->receipt_image) }}" style="max-width:100%;border-radius:12px;border:2px solid #28a745;max-height:220px;object-fit:contain;">
+                    <img src="{{ \App\Support\PublicImage::url($order->receipt_image) }}" style="max-width:100%;border-radius:12px;border:2px solid #28a745;max-height:220px;object-fit:contain;">
                     <div class="text-success fw-bold mt-2">
                         <i class="fas fa-check-circle me-1"></i>Receipt uploaded successfully!
                     </div>

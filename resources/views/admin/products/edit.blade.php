@@ -80,7 +80,7 @@
                                     <label class="form-label fw-bold">Product Image</label>
                                     @if($product->image)
                                         <div class="mb-2 text-center">
-                                            <img src="{{ asset('storage/' . $product->image) }}" class="img-thumbnail" style="max-height: 120px; object-fit: contain;">
+                                            <img src="{{ $product->image_url }}" class="img-thumbnail" style="max-height: 120px; object-fit: contain;">
                                         </div>
                                     @endif
                                     <input type="file" name="image" class="form-control">

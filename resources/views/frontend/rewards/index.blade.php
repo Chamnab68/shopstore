@@ -38,7 +38,7 @@
         @forelse($rewardsList as $reward)
             <div class="col-md-4 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative border">
-                    <img src="{{ $reward->image ? asset('storage/' . $reward->image) : 'https://placehold.co/300x200?text=' . urlencode($reward->name) }}" class="card-img-top" alt="{{ $reward->name }}" style="height: 180px; object-fit: cover;">
+                    <img src="{{ $reward->image ? \App\Support\PublicImage::url($reward->image) : 'https://placehold.co/300x200?text=' . urlencode($reward->name) }}" class="card-img-top" alt="{{ $reward->name }}" style="height: 180px; object-fit: cover;">
                     
                     <span class="position-absolute top-0 end-0 bg-dark text-white fw-bold px-3 py-1 m-3 rounded-pill small shadow-sm">
                         {{ number_format($reward->point_cost) }} Pts
